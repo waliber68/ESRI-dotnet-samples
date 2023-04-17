@@ -12,10 +12,12 @@ using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Samples.Shared.Models;
 using ArcGIS.WinUI;
 using Esri.ArcGISRuntime.Security;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.Windows.ApplicationModel.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -248,6 +250,31 @@ namespace ArcGIS.WinUI.Viewer
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             _ = settingsDialog.ShowAsync();
+        }
+
+        private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            string sampleFormalName = (sender as Button).CommandParameter.ToString();
+            SampleManager.Current.AddRemoveFavorite(sampleFormalName);
+        }
+
+        private void SampleGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            // Get the favorites button from the grid and make it visible.
+            Grid grid = sender as Grid;
+            Button favoritesButton = grid.Children.OfType<Button>().FirstOrDefault();
+            favoritesButton.Visibility = Visibility.Visible;
+        }
+
+        private void SampleGrid_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            // Get the favorites button from the grid.
+            Grid grid = sender as Grid;
+            Button favoritesButton = grid.Children.OfType<Button>().FirstOrDefault();
+
+            // Change the visibility based on the sample's ShowFavoriteIcon property.
+            SampleInfo selectedSample = (sender as FrameworkElement)?.DataContext as SampleInfo;
+            favoritesButton.Visibility = selectedSample.ShowFavoriteIcon ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 

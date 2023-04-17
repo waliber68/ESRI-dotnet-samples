@@ -62,7 +62,6 @@ namespace ArcGIS.Samples.Shared.Models
 
         public bool IsFavorite { get; set; }
 
-
         public bool ShowFavoriteIcon
         {
             get
