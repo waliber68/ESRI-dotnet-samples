@@ -1,0 +1,27 @@
+# The name of the job, which will be displayed for the status check in PR.
+name: Format CSharp files check
+
+# Controls when the action will run.
+# Below triggers the workflow on pull requests to `main`.
+on:
+  pull_request:
+    branches:
+      - main
+
+# A workflow run is made up of one or more jobs that can run sequentially or
+# in parallel.
+
+jobs:
+  format-sln:
+    runs-on: windows-latest
+    name: Solution format
+    steps:
+    - name: Clone .NET Samples
+      uses: actions/checkout@v1
+  
+    - name: Setup Visual Studio Command Prompt
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Format solution
+      run: |
+        dotnet-format
