@@ -10,8 +10,8 @@ namespace ArcGIS.Converters
 {
     public class BoolToFavoriteGlyphConverter : IValueConverter
     {
-        // Diff should just be this comment - it should fix the curly brace issue
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture){
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             return value is true ? (char)0xe2a8 : (char)0xe2a9;
         }
 
