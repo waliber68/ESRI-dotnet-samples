@@ -3,15 +3,24 @@ name: CSharp files styling
 on: push
 
 jobs:
-  enforce-styling:
-    name: Encorce styling
-    runs-on: windows-latest
+
+  git-diff:
+
+    name: Git diff
+    runs-on: ubuntu-latest
 
     steps:
 
       - id: file_changes
         name: Detect changed file paths
         uses: trilom/file-changes-action@master
+
+  enforce-styling:
+
+    name: Encorce styling
+    runs-on: windows-latest
+
+    steps:
 
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -29,4 +38,4 @@ jobs:
 
       - name: Format solution
         run: |
-          dotnet-format --include ${{ steps.file_changes.outputs.files }}
+          dotnet-format --include ${{ git-diff.steps.file_changes.outputs.files }}
