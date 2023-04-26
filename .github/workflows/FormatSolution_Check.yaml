@@ -29,6 +29,4 @@ jobs:
 
       - name: Format solution
         run: |
-          dotnet-format
-        with:
-            FILE_PATHS: ${{ steps.file_changes.outputs.files }}
+          dotnet-format --include ${{ steps.file_changes.outputs.files }}
