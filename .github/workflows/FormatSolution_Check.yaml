@@ -7,12 +7,27 @@ jobs:
     runs-on: windows-latest
     name: Solution format
     steps:
+    
+    - id: file_changes
+        name: Detect changed file paths
+        uses: trilom/file-changes-action@master
+        with:
+            output: ' '
+            fileOutput: ' '
+        
     - name: Clone .NET Samples
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
+      
+      # Print out changed file paths for debugging purposes.
+      - name: Print changed file paths
+        run: |
+          echo 'Below shows a list of changed file paths'
+          echo '${{ steps.file_changes.outputs.files}}'
   
     - name: Setup Visual Studio Command Prompt
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Format solution
       run: |
-        dotnet-format
+        dotnet format
+        
