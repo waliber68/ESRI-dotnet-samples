@@ -6,6 +6,9 @@ jobs:
   enforce-styling:
     name: Encorce styling
     runs-on: windows-latest
+        
+    - name: Clone .NET Samples
+      uses: actions/checkout@v2
     
     steps:
     - id: file_changes
@@ -14,9 +17,6 @@ jobs:
         with:
             output: ' '
             fileOutput: ' '
-        
-    - name: Clone .NET Samples
-      uses: actions/checkout@v2
       
       - name: Print changed file paths
       run: |
