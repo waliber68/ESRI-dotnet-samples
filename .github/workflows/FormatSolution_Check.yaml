@@ -14,6 +14,7 @@ jobs:
       - id: file_changes
         name: Detect changed file paths
         uses: trilom/file-changes-action@master
+        runs-on: ubuntu-latest
 
   enforce-styling:
 
@@ -38,4 +39,4 @@ jobs:
 
       - name: Format solution
         run: |
-          dotnet-format --include ${{ git-diff.steps.file_changes.outputs.files }}
+          dotnet-format
