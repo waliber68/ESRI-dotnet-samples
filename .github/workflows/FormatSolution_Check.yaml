@@ -4,17 +4,6 @@ on: push
 
 jobs:
 
-  git-diff:
-
-    name: Git diff
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - id: file_changes
-        name: Detect changed file paths
-        uses: trilom/file-changes-action@master
-
   enforce-styling:
 
     name: Encorce styling
@@ -24,11 +13,6 @@ jobs:
 
       - name: Checkout the repository
         uses: actions/checkout@v2
-      
-      - name: Print changed file paths
-        run: |
-          echo 'Below shows a list of changed file paths'
-          echo '${{ steps.file_changes.outputs.files}}'
 
       - name: Setup Visual Studio Command Prompt
         uses: microsoft/setup-msbuild@v1.0.2
@@ -38,4 +22,4 @@ jobs:
 
       - name: Format solution
         run: |
-          dotnet-format
+          dotnet-format --check
